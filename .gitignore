@@ -1,0 +1,24 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Node / build artifacts
+node_modules/
+dist/
+build/
+
+# Environment variables / secrets
+
+# PHP backend (keep sensitive files local)
+config.php
+
+config.bat

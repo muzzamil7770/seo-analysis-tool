@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced SEO Analysis Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            background-color: #2c3e50;
+            height: 100vh;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            width: 250px;
+        }
+
+        .sidebar-item {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            BACKGROUND-COLOR: #089144;
+            ;
+            color: white;
+            border-left-color: #3498db;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        .performance-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .performance-card:hover {
+            transform: scale(1.02);
+        }
+
+        /*  */
+        .card-custom {
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+        }
+
+        .bg-red {
+            background-color: #ff4d4d;
+        }
+
+        .bg-orange {
+            background-color: #ff8800;
+        }
+
+        .bg-blue {
+            background-color: #007bff;
+        }
+
+        .bg-green {
+            background-color: #28a745;
+        }
+
+        .element-card {
+            border-radius: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+
+        .keyword-badge {
+            background-color: rgba(40, 167, 69, 0.1);
+            /* Light green */
+            color: #28a745;
+            /* Bootstrap success green */
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .status-card {
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .valid {
+            background-color: #007bff;
+        }
+
+        .at-risk {
+            background-color: #dc3545;
+        }
+
+        .indexed {
+            background-color: #28a745;
+        }
+
+        .ssl-details {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .light-grey {
+            background-color: #dcdcdc54;
+            margin: 3px;
+            border-radius: 9px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="navbar navbar-expand-lg " style="background-color: #007b3e; padding: 10px; z-index: 99;">
+        <div class="container-fluid">
+            <span class="navbar-brand text-white fw-bold">SEO ANALYSIS TOOL</span>
+            <span class="text-white">
+                <i class="fas fa-link"></i> <a href="#" class="text-white text-decoration-none ">Analyzing</a>
+            </span>
+            <div class="ms-auto d-flex align-items-center">
+                <button class="btn btn-purple text-white me-2" style="background-color: #A55EEA;">AI Analysis</button>
+                <button class="btn btn-primary me-2">Export PDF</button>
+                <button class="btn btn-outline-light"><i class="fas fa-sync-alt"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <div class="p-3">
+                <h5 class="text-white">SEO Analysis Tool</h5>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-item active" data-target="performance-metrics">
+                    <i class="fas fa-chart-line me-2"></i> Performance Metrics
+                </div>
+                <div class="sidebar-item" data-target="indexing-crawlability">
+                    <i class="fas fa-search me-2"></i> Indexing & Crawlability
+                </div>
+                <div class="sidebar-item" data-target="meta-data-structure">
+                    <i class="fas fa-tags me-2"></i> Meta Data & Structure
+                </div>
+                <div class="sidebar-item" data-target="traffic-profile">
+                    <i class="fas fa-traffic-light me-2"></i> Traffic Profile
+                </div>
+                <div class="sidebar-item" data-target="keyword-analysis">
+                    <i class="fas fa-key me-2"></i> Keyword Analysis
+                </div>
+                <div class="sidebar-item" data-target="backlink-analysis">
+                    <i class="fas fa-link me-2"></i> Backlink Analysis
+                </div>
+                <div class="sidebar-item" data-target="social-media-profile">
+                    <i class="fas fa-share-alt me-2"></i> Social Media Profile
+                </div>
+                <div class="sidebar-item" data-target="local-search">
+                    <i class="fas fa-map-marker-alt me-2"></i> Google Local Search
+                </div>
+                <div class="sidebar-item" data-target="schema">
+                    <i class="fas fa-code me-2"></i> Schema
+                </div>
+                <div class="sidebar-item" data-target="security">
+                    <i class="fas fa-random me-2"></i> Security & SSL Data
+                </div>
+                <div class="sidebar-item" data-target="domain">
+                    <i class="fas fa-globe me-2"></i> Domain Data
+                </div>
+                <div class="sidebar-item" data-target="user">
+                    <i class="fas fa-user-shield me-2"></i> User Data
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Performance Metrics Section -->
+            <div id="performance-metrics" class="dashboard-section active">
+                <h2 class="mb-4">Performance Metrics</h2>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <!-- <h3>Analyzing: https://www.4idm.com</h3> -->
+
+                </div>
+
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs mb-3" id="performanceTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-body active" id="overview-tab" data-bs-toggle="tab"
+                            data-bs-target="#overview" type="button" role="tab">Overview</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-body" id="detailed-tab" data-bs-toggle="tab"
+                            data-bs-target="#detailed" type="button" role="tab">Detailed Metrics</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-body" id="recommendations-tab" data-bs-toggle="tab"
+                            data-bs-target="#recommendations" type="button" role="tab">Recommendations</button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="performanceTabsContent">
+                    <!-- Overview Tab -->
+                    <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                        <!-- Performance Cards -->
+                        <div class="row mb-4 d-flex flex-wrap">
+                            <div class="col-md-3 mt-1">
+                                <div class="card performance-card bg-success text-white">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Website Performance</h6>
+                                        <h2 class="card-text">4.39</h2>
+                                        <small>Overall Score</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-1">
+                                <div class="card performance-card bg-secondary text-white">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Performance Grade</h6>
+                                        <h2 class="card-text">F</h2>
+                                        <small>Grade Level</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-1">
+                                <div class="card performance-card bg-primary text-white">
+                                    <div class="card-body">
+                                        <h6 class="card-title">SEO Performance</h6>
+                                        <h2 class="card-text">2.76</h2>
+                                        <small>SEO Score</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-1">
+                                <div class="card performance-card bg-danger text-white">
+                                    <div class="card-body">
+                                        <h6 class="card-title">SEO Grade</h6>
+                                        <h2 class="card-text">F</h2>
+                                        <small>SEO Grade Level</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Web Vitals -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Core Web Vitals</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Backend Time</span>
+                                            <span class="text-warning">1250.00 ms</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 70%">
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>First Contentful Paint</span>
+                                            <span class="text-danger">2590.00 ms</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Connect Time</span>
+                                            <span class="text-success">147.00 ms</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 20%">
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Fully Loaded Time</span>
+                                            <span class="text-danger">6619.00 ms</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 90%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Metrics Tab -->
+                    <div class="tab-pane fade" id="detailed" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Comprehensive Performance Metrics</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Metric</th>
+                                            <th>Value</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Page Load Time</td>
+                                            <td>6.5s</td>
+                                            <td><span class="badge bg-danger">Poor</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Time to First Byte</td>
+                                            <td>0.8s</td>
+                                            <td><span class="badge bg-warning">Needs Improvement</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Blocking Time</td>
+                                            <td>250ms</td>
+                                            <td><span class="badge bg-success">Good</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations Tab -->
+                    <div class="tab-pane fade" id="recommendations" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Performance Improvement Suggestions</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-image text-warning me-2"></i>
+                                        Optimize images and use next-gen formats
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-plug text-danger me-2"></i>
+                                        Eliminate render-blocking resources
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-server text-primary me-2"></i>
+                                        Leverage browser caching
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-compress text-success me-2"></i>
+                                        Enable text compression
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="container mt-4">
+                    <h5 class="fw-bold"><i class="fas fa-globe"></i> Regional Performance</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card p-3 shadow-sm" style="border-radius: 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6><img src="https://flagcdn.com/w40/us.png" class="me-2"> <strong>USA</strong>
+                                    </h6>
+                                    <span class="badge bg-danger">4.39</span>
+                                </div>
+                                <p class="mb-0">Performance Grade</p>
+                                <h4 class="fw-bold">F</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 shadow-sm" style="border-radius: 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6><img src="https://flagcdn.com/w40/ca.png" class="me-2"> <strong>Canada</strong>
+                                    </h6>
+                                    <span class="badge bg-danger">4.16</span>
+                                </div>
+                                <p class="mb-0">Performance Grade</p>
+                                <h4 class="fw-bold">F</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3 shadow-sm" style="border-radius: 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6><img src="https://flagcdn.com/w40/fr.png" class="me-2"> <strong>France</strong>
+                                    </h6>
+                                    <span class="badge bg-danger">4.29</span>
+                                </div>
+                                <p class="mb-0">Performance Grade</p>
+                                <h4 class="fw-bold">F</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card p-3 shadow-sm" style="border-radius: 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold"><i class="fas fa-clock"></i> Timing Metrics</h5>
+                                    <span class="badge bg-primary">Performance</span>
+                                </div>
+                                <ul class="list-unstyled">
+                                    <li>Navigation Start Time <strong class="float-end">0.00 s</strong></li>
+                                    <li>Request Start Time <strong class="float-end">0.21 s</strong></li>
+                                    <li>Response Start Time <strong class="float-end">1.47 s</strong></li>
+                                    <li>Response End Time <strong class="float-end">1.47 s</strong></li>
+                                    <li>DOM Loading Time <strong class="float-end">1.48 s</strong></li>
+                                    <li>DOM Interactive Time <strong class="float-end">3.12 s</strong></li>
+                                    <li>DOM Complete Time <strong class="float-end">6.62 s</strong></li>
+                                    <li>Load Event End Time <strong class="float-end">6.63 s</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 shadow-sm" style="border-radius: 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold"><i class="fas fa-tachometer-alt"></i> PageSpeed Metrics</h5>
+                                    <span class="badge bg-primary">Performance</span>
+                                </div>
+                                <p class="text-muted">No data available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+
+            </div>
+
+            <!-- Indexing & Crawlability Section -->
+            <div id="indexing-crawlability" class="dashboard-section">
+                <!-- <h2 class="mb-4">Indexing & Crawlability</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Crawl Status</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Status</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Robots.txt</td>
+                                    <td><span class="badge bg-success">Accessible</span></td>
+                                    <td>No blocking issues detected</td>
+                                </tr>
+                                <tr>
+                                    <td>Sitemap</td>
+                                    <td><span class="badge bg-warning">Partial</span></td>
+                                    <td>Some pages may not be indexed</td>
+                                </tr>
+                                <tr>
+                                    <td>Crawl Errors</td>
+                                    <td><span class="badge bg-danger">5 Errors</span></td>
+                                    <td>Need immediate attention</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> -->
+                <div class="container mt-4">
+                    <h5 class="fw-bold"><i class="fas fa-globe"></i> Regional Performance</h5>
+
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card p-3 shadow-sm">
+                                <h6><i class="fas fa-search"></i> Indexed Pages</h6>
+                                <h2>0</h2>
+                                <p>Found in Google</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 shadow-sm">
+                                <h6><i class="fas fa-cogs"></i> Pages Crawled</h6>
+                                <p>Total Pages</p>
+                                <h2>0</h2>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4 p-3 shadow-sm">
+                        <h6><i class="fas fa-search"></i> Search Rankings</h6>
+                        <div class="p-3 bg-light text-center">No ranking data available</div>
+                    </div>
+
+                    <div class="card mt-3 p-3 shadow-sm">
+                        <h6><i class="fas fa-users"></i> Competitor Analysis</h6>
+                        <div class="p-3 bg-light text-center">No competitor data available</div>
+                    </div>
+
+                    <div class="card mt-3 p-3 shadow-sm">
+                        <h6><i class="fas fa-sitemap"></i> Sitemap Analysis</h6>
+                        <div class="p-3 bg-light text-center">No sitemap data available</div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+
+            <!-- Meta Data & Structure Section -->
+            <div id="meta-data-structure" class="dashboard-section">
+                <h2 class="mb-4">Meta Data & Structure</h2>
+                <!-- <div class="card">
+                    <div class="card-body">
+                        <h5>Page Metadata Analysis</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Status</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Title Tag</td>
+                                    <td><span class="badge bg-success">Optimized</span></td>
+                                    <td>Good length and keyword usage</td>
+                                </tr>
+                                <tr>
+                                    <td>Meta Description</td>
+                                    <td><span class="badge bg-warning">Needs Improvement</span></td>
+                                    <td>Too short, lacks compelling description</td>
+                                </tr>
+                                <tr>
+                                    <td>Header Tags</td>
+                                    <td><span class="badge bg-danger">Poor</span></td>
+                                    <td>Inconsistent H1-H6 hierarchy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> -->
+                <div class="container mt-4">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="card card-custom bg-red">
+                                <h5>Meta Descriptions</h5>
+                                <p><strong>0</strong><br> Pages Need Attention</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-custom bg-orange">
+                                <h5>Titles</h5>
+                                <p><strong>0</strong><br> Pages Without Titles</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-custom bg-blue">
+                                <h5>Broken Links</h5>
+                                <p><strong>9</strong><br> Links Not Working</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card card-custom bg-green">
+                                <h5>Uncompressed Pages</h5>
+                                <p><strong>0</strong><br> Need Optimization</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="text-danger">Elements</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-warning">H1 Tags</h6>
+                                    <p>All pages have H1 tags!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-primary">H2 Tags</h6>
+                                    <p>All pages have H2 tags!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-success">H3 Tags</h6>
+                                    <p>All pages have H3 tags!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-warning">Title Tags</h6>
+                                    <p>All pages have Title tags!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-info">Meta Descriptions</h6>
+                                    <p>All pages have Meta Descriptions!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="element-card">
+                                    <h6 class="text-secondary">Meta Keywords</h6>
+                                    <p>All pages have Meta Keywords!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-4 p-3 shadow-sm">
+                        <h6><i class="fas fa-clone"></i> Duplicate Content</h6>
+                        <div class="p-3 bg-light text-center">No data available</div>
+                    </div>
+                    <div class="card mt-4 p-3 shadow-sm">
+                        <h6><i class="fa fa-link"></i> Broken Links</h6>
+                        <div
+                            class="p-3 bg-light text-center m-1 d-flex justify-content-around align-content-center flex-wrap">
+                            <a href="" class="text-black text-decoration-none">
+                                https://example.com/nonexistent-page</a>
+                            <p class="text-danger">404 Not Found</p>
+                        </div>
+                        <div
+                            class="p-3 bg-light text-center m-1 d-flex justify-content-around align-content-center flex-wrap">
+                            <a href="" class="text-black text-decoration-none">https://www.google.com/%</a>
+                            <p class="text-danger">400 Bad Request</p>
+                        </div>
+
+                    </div>
+                    <div class=" mt-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white fw-bold ">
+                                <p class="m-0"><i class="fa fa-tag"></i> Keyword Analysis</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="fw-bold text-primary">https://www.4idm.com</p>
+                                <div class="d-flex flex-wrap">
+                                    <span class="keyword-badge">idm-logo</span>
+                                    <span class="keyword-badge">idm-logo</span>
+                                    <span class="keyword-badge">idm-logo_light</span>
+                                    <span class="keyword-badge">idm-logo_light</span>
+                                    <span class="keyword-badge">idm-logo</span>
+                                    <span class="keyword-badge">idm-logo</span>
+                                    <span class="keyword-badge">Home</span>
+                                    <span class="keyword-badge">Home</span>
+                                    <span class="keyword-badge">Home</span>
+                                    <span class="keyword-badge">Portfolio Internet Digital Marketing</span>
+                                    <span class="keyword-badge">parallax background</span>
+                                    <span class="keyword-badge">Home</span>
+                                    <span class="keyword-badge">Home</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Traffic Profile Section -->
+            <div id="traffic-profile" class="dashboard-section">
+
+                <div class="container d-flex justify-content-center align-items-center vh-75">
+                    <div class="card p-4 shadow-sm"
+                        style="max-width: 600px; width: 100%;     background-color: #ffa5003d;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="m-0">Traffic Analytics</h5>
+                            <span class="badge bg-light text-black">Last Updated: None</span>
+                        </div>
+                        <div class="alert  text-center border" role="alert" style="    background-color: #ffffffa8;">
+                            <div class="mb-2">
+                                <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" alt="Warning"
+                                    width="40">
+                            </div>
+                            <h6 class="fw-bold">Unable to Retrieve Traffic Data</h6>
+                            <p class="text-muted mb-3">We couldn’t retrieve traffic data for this domain. This could be
+                                due to low
+                                traffic volume or API limitations.</p>
+                            <button class="btn btn-success">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyword Analysis Section -->
+            <div id="keyword-analysis" class="dashboard-section">
+                <h2 class="mb-4">Keyword Analysis</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Top Performing Keywords</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Keyword</th>
+                                    <th>Rank</th>
+                                    <th>Volume</th>
+                                    <th>Difficulty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SEO Tools</td>
+                                    <td>12</td>
+                                    <td>5,400</td>
+                                    <td><span class="badge bg-warning">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Website Analytics</td>
+                                    <td>8</td>
+                                    <td>3,200</td>
+                                    <td><span class="badge bg-success">Low</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backlink Analysis Section -->
+            <div id="backlink-analysis" class="dashboard-section">
+                <h2 class="mb-4">Backlink Analysis</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Backlink Overview</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body">
+                                        <h6>Total Backlinks</h6>
+                                        <h3>1,250</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <h6>Unique Domains</h6>
+                                        <h3>87</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card bg-danger text-white">
+                                    <div class="card-body">
+                                        <h6>Toxic Backlinks</h6>
+                                        <h3>12</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Sections (Social Media, Local Search, Schema) -->
+            <div id="social-media-profile" class="dashboard-section">
+                <h2 class="mb-4">Social Media Profile</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Social Media Metrics</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <i class="fab fa-facebook"></i> Facebook Followers: 5,200
+                            </div>
+                            <div class="col-4">
+                                <i class="fab fa-twitter"></i> Twitter Followers: 3,800
+                            </div>
+                            <div class="col-4">
+                                <i class="fab fa-linkedin"></i> LinkedIn Connections: 2,500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="local-search" class="dashboard-section">
+                <h2 class="mb-4">Google Local Search</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Local SEO Metrics</h5>
+                        <table class="table">
+                            <tr>
+                                <td>Google My Business</td>
+                                <td><span class="badge bg-success">Verified</span></td>
+                            </tr>
+                            <tr>
+                                <td>Local Pack Ranking</td>
+                                <td><span class="badge bg-warning">Position 7</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="schema" class="dashboard-section">
+                <h2 class="mb-4">Schema Markup</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Schema Implementation</h5>
+                        <table class="table">
+                            <tr>
+                                <td>Organization Schema</td>
+                                <td><span class="badge bg-success">Implemented</span></td>
+                            </tr>
+                            <tr>
+                                <td>Article Schema</td>
+                                <td><span class="badge bg-warning">Partial</span></td>
+                            </tr>
+                            <tr>
+                                <td>Product Schema</td>
+                                <td><span class="badge bg-danger">Missing</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="security" class="dashboard-section">
+                <div class="container mt-4">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="status-card valid text-center">
+                                <h5>SSL Status</h5>
+                                <h3>Valid</h3>
+                                <p>Certificate Status</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="status-card at-risk text-center">
+                                <h5>Security Status</h5>
+                                <h3>At Risk</h3>
+                                <p>Scan Complete</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="status-card text-dark bg-light text-center">
+                                <h5>Certificate Expiration</h5>
+                                <h3>87 days</h3>
+                                <p>Until Expiration</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="status-card indexed text-center">
+                                <h5>Indexing Status</h5>
+                                <h3>Indexed</h3>
+                                <p>No robots.txt</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ssl-details mt-4 ">
+                        <h5>SSL Certificate Details</h5>
+                        <div class="row d-flex justify-content-around align-content-center">
+                            <div class="col-md-6 light-grey">
+                                <h6>Issuer Information</h6>
+                                <p><strong>Country:</strong> US</p>
+                                <p><strong>State:</strong> Arizona</p>
+                                <p><strong>Locality:</strong> Scottsdale</p>
+                                <p><strong>Organization:</strong> GoDaddy.com, Inc.</p>
+                                <p><strong>Unit:</strong> <a href="#">certs.godaddy.com/repository/</a></p>
+                                <p><strong>Common Name:</strong> Go Daddy Secure Certificate Authority - G2</p>
+                                <p><strong>Expiration Date:</strong> June 16, 2025</p>
+                                <p><strong>Days Remaining:</strong> 87</p>
+                            </div>
+                            <div class="col-md-5 light-grey">
+                                <h6>Certificate Subject</h6>
+                                <p><strong>Common Name:</strong> 4idm.com</p>
+                                <p><strong>Version:</strong> 3</p>
+                                <p><strong>Serial Number:</strong> 03817AB7B8922DE7</p>
+                            </div>
+                        </div>
+                        <div class="card mt-4 p-3 shadow-sm">
+                            <h6><i class="fa fa-link"></i> Security Status Details</h6>
+                            <div
+                                class="p-3 bg-light text-center m-1 d-flex justify-content-around align-content-center flex-wrap shadow">
+                                <a href="" class="text-black text-decoration-none  fw-bold">
+                                    Malware Status</a>
+                                <p class="text-danger fw-bold border border-danger rounded-5 shadow px-2 m-0"><i
+                                        class="fas fa-exclamation-circle me-2 text-danger"></i>
+                                    Potential
+                                    Risk
+                                    Detected
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="domain" class="dashboard-section">
+                <div class="mt-5">
+                    <h5 class="text-primary">Domain Data</h5>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-success">Domain Age</h6>
+                                <p>5 Years</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-danger">Expiration Date</h6>
+                                <p>2027-12-31</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-info">Registrar</h6>
+                                <p>Namecheap</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-warning">SSL Status</h6>
+                                <p>Valid until 2026</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-secondary">Hosting Provider</h6>
+                                <p>Bluehost</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="element-card">
+                                <h6 class="text-primary">DNS Status</h6>
+                                <p>Properly Configured</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="user" class="dashboard-section">
+                <div class="container mt-4">
+                    <h5 class="fw-bold"><i class="fas fa-users"></i> User Data</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>John Doe</td>
+                                    <td>johndoe@example.com</td>
+                                    <td>Admin</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                            Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jane Smith</td>
+                                    <td>janesmith@example.com</td>
+                                    <td>User</td>
+                                    <td><span class="badge bg-danger">Inactive</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
+                                            Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bootstrap JS and dependencies -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+
+            <!-- jQuery -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    // Sidebar item click handler
+                    $('.sidebar-item').on('click', function () {
+                        // Remove active class from all sidebar and dashboard items
+                        $('.sidebar-item').removeClass('active');
+                        $('.dashboard-section').removeClass('active');
+
+                        // Add active class to clicked sidebar item
+                        $(this).addClass('active');
+
+                        // Show corresponding dashboard section
+                        var target = $(this).data('target');
+                        $('#' + target).addClass('active');
+                    });
+                });
+            </script>
+</body>
+
+</html>

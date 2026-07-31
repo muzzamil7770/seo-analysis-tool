@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="d-flex justify-content-center flex-column align-content-center">
+    <!-- Header Section -->
+    <header class="bg-white py-md-5 text-center ">
+        <h1 class="fw-bold text-dark">ALL-in-One SEO Analysis Tool</h1>
+        <p class="text-secondary">Get comprehensive insights about any website's performance, SEO, and security</p>
+    </header>
+
+    <!-- Background Video Section -->
+    <div class="position-relative py-md-5 d-flex align-items-center justify-content-center">
+        <video class="position-absolute w-100 h-100 object-fit-cover opacity-50" autoplay loop muted playsinline>
+            <source src="static/videos/background.mp4" type="video/mp4">
+        </video>
+
+        <!-- Analysis Form -->
+        <div class="position-relative shadow-lg w-75 custom-shadow">
+            <form method="POST" action="analyze.php">
+                <div class="input-group">
+                    <input type="url" name="url" class="form-control p-3 border-0 shadow-sm"
+                        placeholder="Enter website URL (e.g., https://example.com)" required>
+                    <button class="btn btn-success px-4 shadow-sm" type="submit">Analyze Website</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="container py-5">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg p-4 rounded-3 custom-shadow">
+                    <h5 class="fw-bold">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Performance Analysis
+                    </h5>
+                    <p class="text-muted">Insights about loading speed and core web vitals.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg p-4 rounded-3 custom-shadow">
+                    <h5 class="fw-bold"><i class="fas fa-search me-2"></i>
+                        SEO Analysis</h5>
+                    <p class="text-muted">Audit including meta tags, headings, and content.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg p-4 rounded-3 custom-shadow">
+                    <h5 class="fw-bold"><i class="fas fa-fingerprint me-2"></i>
+                        Security Check</h5>
+                    <p class="text-muted">SSL validation and vulnerability scanning.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg p-4 rounded-3 custom-shadow">
+                    <h5 class="fw-bold"> <i class="fas fa-laptop-code me-2"></i>
+                        Technical SEO</h5>
+                    <p class="text-muted">Schema markup, sitemap, and robots.txt validation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .custom-shadow {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-success {
+            border-radius: 10px;
+        }
+    </style>
+</body>
+
+</html>
